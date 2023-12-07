@@ -1,10 +1,10 @@
-function [x, cost, info, options] = trustregions(problem, x, options)
+function [x, cost, info, options, store] = trustregions(problem, x, options)
 % Riemannian trust-regions solver for optimization on manifolds.
 %
-% function [x, cost, info, options] = trustregions(problem)
-% function [x, cost, info, options] = trustregions(problem, x0)
-% function [x, cost, info, options] = trustregions(problem, x0, options)
-% function [x, cost, info, options] = trustregions(problem, [], options)
+% function [x, cost, info, options, store] = trustregions(problem)
+% function [x, cost, info, options, store] = trustregions(problem, x0)
+% function [x, cost, info, options, store] = trustregions(problem, x0, options)
+% function [x, cost, info, options, store] = trustregions(problem, [], options)
 %
 % This is the Riemannian Trust-Region solver for Manopt, named RTR.
 % This solver tries to minimize the cost function described in the problem
@@ -479,6 +479,8 @@ while true
         if options.verbosity >= 1
             fprintf([reason '\n']);
         end
+        % Get the latest store to return it
+        store = storedb.getWithShared(key);
         break;
     end
 

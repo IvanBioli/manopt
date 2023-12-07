@@ -1,10 +1,10 @@
-function [x, cost, info, options] = conjugategradient(problem, x, options)
+function [x, cost, info, options, store] = conjugategradient(problem, x, options)
 % Conjugate gradient minimization algorithm for Manopt.
 %
-% function [x, cost, info, options] = conjugategradient(problem)
-% function [x, cost, info, options] = conjugategradient(problem, x0)
-% function [x, cost, info, options] = conjugategradient(problem, x0, options)
-% function [x, cost, info, options] = conjugategradient(problem, [], options)
+% function [x, cost, info, options, store] = conjugategradient(problem)
+% function [x, cost, info, options, store] = conjugategradient(problem, x0)
+% function [x, cost, info, options, store] = conjugategradient(problem, x0, options)
+% function [x, cost, info, options, store] = conjugategradient(problem, [], options)
 %
 % Apply the conjugate gradient minimization algorithm to the problem
 % defined in the problem structure, starting at x0 if it is provided
@@ -257,6 +257,8 @@ while true
         if options.verbosity >= 1
             fprintf([reason '\n']);
         end
+        % Get the latest store to return it
+        store = storedb.getWithShared(key);
         break;
     end
     
