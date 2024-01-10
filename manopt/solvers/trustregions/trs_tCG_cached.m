@@ -16,7 +16,7 @@ function trsoutput = trs_tCG_cached(problem, trsinput, options, storedb, key)
 %   trsinput: structure with the following fields:
 %       x: point on the manifold problem.M
 %       fgradx: gradient of the cost function of the problem at x
-%       Delta = trust-region radius
+%       Delta: trust-region radius
 %   options: structure containing options for the subproblem solver
 %   storedb, key: manopt's caching system for the point x
 %
@@ -125,6 +125,13 @@ if isfield(options, 'useRand') && options.useRand
             ['options.useRand = true but @trs_tCG_cached ignores it.\n' ...
              'You may set options.subproblemsolver = @trs_tCG;\n', ...
              'Alternatively, set options.useRand = false;']);
+end
+
+if isfield(trsinput, 'eta0') && ~isempty(trsinput.eta0)
+    warning('manopt:trs_tCG_cached:eta0', ...
+            ['@trs_tCG_cached ignores trsinput.eta0.\n' ...
+             'You may set options.subproblemsolver = @trs_tCG;\n', ...
+             'Alternatively, set trsinput.eta0 = [];']);
 end
 
 x = trsinput.x;
